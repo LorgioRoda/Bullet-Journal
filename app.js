@@ -13,10 +13,7 @@ require("./configs/cors.config")(app);
 require("./configs/session.config")(app);
 module.exports = app;
 
-
 //Prefijos
 const privateRouter = require("./routes/private.routes");
-const authRouter = require("./routes/auth.routes");
 
-app.use("/", authRouter);
-app.use("/profile", privateRouter);
+app.use("/api/private", privateRouter); //postman update
