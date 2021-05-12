@@ -9,9 +9,9 @@ const app = express();
 require("./configs/middleware.config")(app);
 //Corse
 require("./configs/cors.config")(app);
-//Session config
+//Session config + Passport
 require("./configs/session.config")(app);
-module.exports = app;
+require("./configs/passport.config")(app);
 
 //Prefijos
 const privateRouter = require("./routes/private.routes");
@@ -22,3 +22,5 @@ app.use("/api/private", privateRouter); //postman update
 app.use((req, res, next) => {
   return res.status(404).json({ message: "Not Found" });
 });
+
+module.exports = app;
