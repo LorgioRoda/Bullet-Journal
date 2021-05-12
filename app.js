@@ -3,16 +3,24 @@ const express = require("express");
 
 //DB config
 require("./configs/db.config");
+
 const app = express();
 
 //Middleware config
 require("./configs/middleware.config")(app);
-//Corse
 require("./configs/cors.config")(app);
+
 //Session config
 require("./configs/session.config")(app);
-module.exports = app;
 
+//Router
+const taskRouter = require("./routes/task.routes");
+app.use("/api/task", taskRouter);
+const habitsRouter = require("./routes/habits.routes");
+app.use("/api/habits", habitsRouter);
 
-//Prefijos
+app.use((req, res, next) => {
+  return res.status(404).json({ message: "Not Found" });
+});
 
+module.exports = app; //exportar la aplicación

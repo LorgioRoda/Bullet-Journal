@@ -1,46 +1,46 @@
 const express = require("express");
-const Task = require("../models/Task.model");
+const Habits = require("../models/Habits.model");
 const router = express.Router();
 
 router.get("/", (req, res, next) => {
-  //Parte del CRUD, recibir todos las Task
-  Task.find() //importamos el modelo
-    .then((tasks) => res.status(200).json(tasks)) //ok
+  //Parte del CRUD, recibir todos las Habits
+  Habits.find() //importamos el modelo
+    .then((Habits) => res.status(200).json(Habits)) //ok
     .catch((err) => res.status(500).json(err)); //error
 });
 
 router.get("/:id", (req, res, next) => {
-  //Obtener un Task en concreto
+  //Obtener un Habits en concreto
   const { id } = req.params;
-  Task.findOne({ _id: id })
-    .then((Task) => res.status(200).json(Task)) //ok
+  Habits.findOne({ _id: id })
+    .then((Habits) => res.status(200).json(Habits)) //ok
     .catch((err) => res.status(500).json(err)); //error
 });
 
 router.post("/", (req, res, next) => {
-  const { name, description, done, dueDate, priority, taskList } = req.body;
+  const { name, description, image, checkBox, dueDate, habitsList } = req.body;
 
   if (!name) {
     return res.status(400).json({ message: "Name is required" });
   }
 
-  Task.create({ name, description, done, dueDate, priority, taskList })
-    .then((Task) => res.status(200).json(Task))
+  Habits.create({ name, description, image, checkBox, dueDate, habitsList })
+    .then((Habits) => res.status(200).json(Habits))
     .catch((err) => res.status(500).json(err));
 });
 
 router.put("/:id", (req, res, next) => {
   //actualizar con put
   const { id } = req.params;
-  Task.findOneAndUpdate({ _id: id }, req.body, { new: true }) //Task actualizado
-    .then((Task) => res.status(200).json(Task))
+  Habits.findOneAndUpdate({ _id: id }, req.body, { new: true }) //Habits actualizado
+    .then((Habits) => res.status(200).json(Habits))
     .catch((err) => res.status(500).json(err));
 });
 
 router.delete("/:id", (req, res, next) => {
   const { id } = req.params;
-  Task.findOneAndRemove({ _id: id })
-    .then(() => res.status(200).json({ message: `Task ${id} deleted` }))
+  Habits.findOneAndRemove({ _id: id })
+    .then(() => res.status(200).json({ message: `Habits ${id} deleted` }))
     .catch((err) => res.status(500).json(err));
 });
 
