@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const User = require("./private.routes");
+const User = require("../models/User.model");
 const uploader = require("../configs/cloudinary.config");
 
 router.get("/:id", (req, res) => {
@@ -14,8 +14,8 @@ router.get("/:id", (req, res) => {
 router.post(
   "/edit", uploader.fields(
   [
-    { name: profile_pic, maxCount: 1 },
-    { name: profile_Background, maxCount: 1 },
+    { name: "profile_pic", maxCount: 1 },
+    { name: "profile_Background", maxCount: 1 },
   ]),
   (req, res) => {
     const { username, description } = req.body;
