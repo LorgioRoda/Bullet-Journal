@@ -12,3 +12,7 @@ require("./configs/cors.config")(app);
 //Session config
 require("./configs/session.config")(app);
 module.exports = app;
+
+
+//Prefijos
+
