@@ -15,4 +15,8 @@ module.exports = app;
 
 
 //Prefijos
+const privateRouter = require("./routes/private.routes");
+const authRouter = require("./routes/auth.routes");
 
+app.use("/", authRouter);
+app.use("/profile", privateRouter);
