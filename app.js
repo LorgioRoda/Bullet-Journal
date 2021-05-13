@@ -9,18 +9,23 @@ const app = express();
 //Middleware config
 require("./configs/middleware.config")(app);
 require("./configs/cors.config")(app);
-
-//Session config
+//Session config + Passport
 require("./configs/session.config")(app);
+require("./configs/passport.config")(app);
 
-//Router
+//Prefijos
+const privateRouter = require("./routes/private.routes");
+const authRouter = require("./routes/auth.routes");
 const taskRouter = require("./routes/task.routes");
-app.use("/api/task", taskRouter);
 const habitsRouter = require("./routes/habits.routes");
-app.use("/api/habits", habitsRouter);
 
+app.use("/api/habits", habitsRouter);
+app.use("/api/task", taskRouter);
+app.use("/api/private", privateRouter); //postman update
+app.use("/api/auth", authRouter)
+//Catch 404 and respond with error message
 app.use((req, res, next) => {
   return res.status(404).json({ message: "Not Found" });
 });
 
-module.exports = app; //exportar la aplicación
+module.exports = app;
