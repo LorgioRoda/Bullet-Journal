@@ -37,7 +37,10 @@ router.post("/signup", (req, res, next) => {
           return res.status(200).json(newUser);
         });
       })
-      .catch((error) => res.status(500).json(error));
+      .catch((error) => {
+        console.log(error)
+        res.status(500).json(error);
+      }) 
   });
 });
 
