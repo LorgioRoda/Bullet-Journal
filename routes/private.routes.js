@@ -4,7 +4,7 @@ const User = require("../models/User.model");
 const uploader = require("../configs/cloudinary.config");
 
 router.get("/:id", (req, res) => {
-  const { id } = req.user.params;
+  const { id } = req.user;
   User.findById(id)
     .then((user) => res.status(200).json(user))
     .catch((err) => res.status(500).json(err));
@@ -65,9 +65,9 @@ router.post(
  */
 
 //Profile delete
-router.delete("/:id", (req, res, next) => {
+router.delete("/:id/delete", (req, res, next) => {
   const { id } = req.params;
-  Todo.findOneAndRemove({ _id: id, user: req.user.id })
+  User.findOneAndRemove({ _id: id })
     .then(() => res.status(200).json({ message: `${id} deleted 🗑` }))
     .catch((err) => res.status(500).json(err));
 });

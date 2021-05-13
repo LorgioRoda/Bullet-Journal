@@ -42,7 +42,7 @@ router.post("/signup", (req, res, next) => {
 });
 
 router.post("/login", (req, res, next)=> {
-    passport.authenticate("local", (err, theUser, failureDetails)=> {  //Estrategia local
+    passport.authenticate("local", (error, theUser, failureDetails)=> {  //Estrategia local
         if(error){
             return res.status(500).json(error);
         }
@@ -67,7 +67,7 @@ router.post("/logout", (req, res, next)=> {
     return res.status(200).json({message: "Log out success"})
 })
 
-router.get("loggedin", (req, res)=> { //save log with react
+router.get("/loggedin", (req, res)=> { //save log with react
     if(req.isAuthenticated()){ //define req.user
         return res.status(200).json(req.user)
     } else {
