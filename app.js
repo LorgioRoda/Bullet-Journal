@@ -15,9 +15,10 @@ require("./configs/passport.config")(app);
 
 //Prefijos
 const privateRouter = require("./routes/private.routes");
+const authRouter = require("./routes/auth.routes");
 
 app.use("/api/private", privateRouter); //postman update
-
+app.use("/api/auth", authRouter)
 //Catch 404 and respond with error message
 app.use((req, res, next) => {
   return res.status(404).json({ message: "Not Found" });

@@ -65,3 +65,18 @@ router.post("/login", (req, res, next)=> {
 
     })(req, res, next) //Llamar una funcion POST, super importante
 })
+
+router.post("/logout", (req, res, next)=> {
+    req.logout() //destroy session
+    return res.status(200).json({message: "Log out success"})
+})
+
+router.get("loggedin", (req, res)=> { //save log with react
+    if(req.isAuthenticated()){ //define req.user
+        return res.status(200).json(req.user)
+    } else {
+        return res.status(403).json({message:"Forbbiden"}) 
+    }
+})
+
+module.exports = router;
