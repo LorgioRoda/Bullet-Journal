@@ -9,10 +9,6 @@ const bcryptSalt = 10;
 router.post("/signup", (req, res, next) => {
   const { username, email, password } = req.body;
 
-  if (password.length < 3) {
-    return res.status(400).json({ message: "Password invalide" });
-  }
-
   if (!username || !email) {
     return res.status(400).json({ message: "Please fill all the fields" });
   }
