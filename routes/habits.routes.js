@@ -18,13 +18,13 @@ router.get("/:id", (req, res, next) => {
 });
 
 router.post("/", (req, res, next) => {
-  const { name, description, checkBox, dueDate, habitsList } = req.body; //image
+  const { name, description, imagen, checkBox, dueDate, habitsList } = req.body; //image
 
   if (!name) {
     return res.status(400).json({ message: "Name is required" });
   }
 
-  Habits.create({ name, description, checkBox, dueDate, habitsList }) //image
+  Habits.create({ name, description, imagen, checkBox, dueDate, habitsList }) //image
     .then((Habits) => res.status(200).json(Habits))
     .catch((err) => res.status(500).json(err));
 });
