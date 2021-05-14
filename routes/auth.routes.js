@@ -4,14 +4,11 @@ const router = express.Router();
 const User = require("../models/User.model");
 //Bcrypt config
 const bcrypt = require("bcryptjs");
+const { isLoggedIn } = require("../middlewares/auth");
 const bcryptSalt = 10;
 
 router.post("/signup", (req, res, next) => {
   const { username, email, password } = req.body;
-
-  if (password.length < 3) {
-    return res.status(400).json({ message: "Password invalide" });
-  }
 
   if (!username || !email) {
     return res.status(400).json({ message: "Please fill all the fields" });
@@ -41,12 +38,15 @@ router.post("/signup", (req, res, next) => {
           return res.status(200).json(newUser);
         });
       })
-      .catch((error) => res.status(500).json(error));
+      .catch((error) => {
+        console.log(error)
+        res.status(500).json(error);
+      }) 
   });
 });
 
 router.post("/login", (req, res, next)=> {
-    passport.authenticate("local", (err, theUser, failureDetails)=> {  //Estrategia local
+    passport.authenticate("local", (error, theUser, failureDetails)=> {  //Estrategia local
         if(error){
             return res.status(500).json(error);
         }
@@ -66,12 +66,12 @@ router.post("/login", (req, res, next)=> {
     })(req, res, next) //Llamar una funcion POST, super importante
 })
 
-router.post("/logout", (req, res, next)=> {
+router.post("/logout", isLoggedIn, (req, res, next)=> {
     req.logout() //destroy session
     return res.status(200).json({message: "Log out success"})
 })
 
-router.get("loggedin", (req, res)=> { //save log with react
+router.get("/loggedin", (req, res)=> { //save log with react
     if(req.isAuthenticated()){ //define req.user
         return res.status(200).json(req.user)
     } else {
