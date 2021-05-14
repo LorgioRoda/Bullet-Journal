@@ -7,7 +7,7 @@ module.exports = (app) => {
   // Identificará a un usuario con una sesión (Asignará a la sesión el id del usuario)
   passport.serializeUser((user, cb) => { cb(null, user.id )});
 
-  // Identificará a qué usuario pertenece la sesión
+  // El usuario pertenece la sesión
   passport.deserializeUser((id, cb) => {
     User.findById(id)
     .then(user => cb(null, user))

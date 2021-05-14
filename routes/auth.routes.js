@@ -4,6 +4,7 @@ const router = express.Router();
 const User = require("../models/User.model");
 //Bcrypt config
 const bcrypt = require("bcryptjs");
+const { isLoggedIn } = require("../middlewares/auth");
 const bcryptSalt = 10;
 
 router.post("/signup", (req, res, next) => {
@@ -65,7 +66,7 @@ router.post("/login", (req, res, next)=> {
     })(req, res, next) //Llamar una funcion POST, super importante
 })
 
-router.post("/logout", (req, res, next)=> {
+router.post("/logout", isLoggedIn, (req, res, next)=> {
     req.logout() //destroy session
     return res.status(200).json({message: "Log out success"})
 })
