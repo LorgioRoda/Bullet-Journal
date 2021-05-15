@@ -10,7 +10,6 @@ router.get("/", (req, res, next) => {
 });
 
 router.get("/:id", (req, res, next) => {
-  //Obtener un Task en concreto
   const { id } = req.params;
   Task.findOne({ _id: id })
     .then((Task) => res.status(200).json(Task)) //ok
