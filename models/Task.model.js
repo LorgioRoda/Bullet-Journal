@@ -7,14 +7,14 @@ const todoSchema = new Schema(
     done: { type: Boolean, default: false },
     dueDate: { type: Date, default: Date.now() },
     priority: { type: Boolean, default: false },
-    taskList: { type: Schema.Types.ObjectId, ref: "User" },
+    user: { type: Schema.Types.ObjectId, ref: "User" },
   },
   {
     timestamps: true,
     toJSON: {
-      tranform: (doc, ret) => {
+      transform: (doc, ret) => {
         ret.id = doc._id;
-        delete ret.id;
+        delete ret._id;
         delete ret.__v;
         return ret;
       },

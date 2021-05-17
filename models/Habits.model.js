@@ -13,9 +13,9 @@ const habitsSchema = new Schema(
   {
     timestamps: true,
     toJSON: {
-      tranform: (doc, ret) => {
+      transform: (doc, ret) => {
         ret.id = doc._id;
-        delete ret.id;
+        delete ret._id;
         delete ret.__v;
         return ret;
       },
