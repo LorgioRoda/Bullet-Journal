@@ -4,8 +4,8 @@ const Schema = mongoose.Schema;
 const userSchema = new Schema(
   {
     username: { type: String, required: true, unique: true },
-    password: { type: String, required: true},
-    description: {type: String, default: ""},
+    password: { type: String, required: true },
+    description: { type: String, default: "" },
     email: {
       type: String,
       unique: true,
@@ -20,12 +20,12 @@ const userSchema = new Schema(
     photo: {
       type: String,
       default:
-        "https://c4.wallpaperflare.com/wallpaper/677/516/1012/world-of-warcraft-battle-for-azeroth-sylvanas-windrunner-anduin-wrynn-video-games-wallpaper-preview.jpg",
+        "http://www.kalegoi.com/wp-content/uploads/2016/09/aia-1000x200.jpg",
     },
     profile_Background: {
       type: String,
       default:
-        "https://c4.wallpaperflare.com/wallpaper/988/183/707/artwork-fantasy-art-world-of-warcraft-horde-wallpaper-preview.jpg",
+        "https://pbs.twimg.com/profile_images/1015018361745526784/2luA9Rvz.jpg",
     },
   },
   {
