@@ -2,6 +2,7 @@ const express = require("express");
 const passport = require("passport");
 const router = express.Router();
 const User = require("../models/User.model");
+const uploader = require("../configs/cloudinary.config");
 //Bcrypt config
 const bcrypt = require("bcryptjs");
 const { isLoggedIn } = require("../middlewares/auth");
@@ -39,44 +40,61 @@ router.post("/signup", (req, res, next) => {
         });
       })
       .catch((error) => {
-        console.log(error)
+        console.log(error);
         res.status(500).json(error);
-      }) 
+      });
   });
 });
 
-router.post("/login", (req, res, next)=> {
-    passport.authenticate("local", (error, theUser, failureDetails)=> {  //Estrategia local
-        if(error){
-            return res.status(500).json(error);
-        }
-
-        if(!theUser){
-            return res.status(401).json(failureDetails);
-        }
-
-        req.login(theUser, (error) => {
-            if (error) {
-              return res.status(500).json(error);
-            }
-  
-            return res.status(200).json(theUser);
-          });
-
-    })(req, res, next) //Llamar una funcion POST, super importante
-})
-
-router.post("/logout", isLoggedIn, (req, res, next)=> {
-    req.logout() //destroy session
-    return res.status(200).json({message: "Log out success"})
-})
-
-router.get("/loggedin", (req, res)=> { //save log with react
-    if(req.isAuthenticated()){ //define req.user
-        return res.status(200).json(req.user)
-    } else {
-        return res.status(403).json({message:"Forbbiden"}) 
+router.post("/login", (req, res, next) => {
+  passport.authenticate("local", (error, theUser, failureDetails) => {
+    //Estrategia local
+    if (error) {
+      return res.status(500).json(error);
     }
-})
+
+    if (!theUser) {
+      return res.status(401).json(failureDetails);
+    }
+
+    req.login(theUser, (error) => {
+      if (error) {
+        return res.status(500).json(error);
+      }
+
+      return res.status(200).json(theUser);
+    });
+  })(req, res, next); //Llamar una funcion POST, super importante
+});
+
+router.post("/logout", isLoggedIn, (req, res, next) => {
+  req.logout(); //destroy session
+  return res.status(200).json({ message: "Log out success" });
+});
+
+router.get("/loggedin", (req, res) => {
+  //save log with react
+  if (req.isAuthenticated()) {
+    //define req.user
+    return res.status(200).json(req.user);
+  } else {
+    return res.status(403).json({ message: "Forbbiden" });
+  }
+});
+
+//Edit Profile
+router.put("/edit", isLoggedIn, uploader.single("photo"), (req, res, next) => {
+  console.log(req.file);
+  User.findOneAndUpdate(
+    { _id: req.user.id },
+    {
+      ...req.body,
+      profilePic: req.file ? req.file.path : req.user.profilePic,
+    },
+    { new: true }
+  )
+    .then((user) => res.status(200).json(user))
+    .catch((error) => res.status(500).json(error));
+});
 
 module.exports = router;

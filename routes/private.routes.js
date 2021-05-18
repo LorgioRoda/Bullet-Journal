@@ -1,7 +1,6 @@
 const express = require("express");
 const router = express.Router();
 const User = require("../models/User.model");
-const uploader = require("../configs/cloudinary.config");
 const { isLoggedIn } = require("../middlewares/auth");
 
 router.get("/:id", isLoggedIn,(req, res) => {
@@ -44,23 +43,7 @@ router.post(
   }
 ); */
 //Duda con el put y findbyandupdate
-router.put(
-  "/edit",
-  isLoggedIn,
-  uploader.single("profilePic"),
-  (req, res, next) => {
-    User.findOneAndUpdate(
-      { _id: req.user.id },
-      {
-        ...req.body,
-        profilePic: req.file ? req.file.path : req.user.profilePic,
-      },
-      { new: true }
-    )
-      .then((user) => res.status(200).json(user))
-      .catch((error) => res.status(500).json(error));
-  }
-);
+
 
 //Profile delete
 router.delete("/:id/delete", isLoggedIn, (req, res, next) => {
