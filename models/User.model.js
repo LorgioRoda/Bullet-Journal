@@ -17,7 +17,7 @@ const userSchema = new Schema(
         "Please fill a valid password",
       ],
     },
-    profile_pic: {
+    photo: {
       type: String,
       default:
         "https://c4.wallpaperflare.com/wallpaper/677/516/1012/world-of-warcraft-battle-for-azeroth-sylvanas-windrunner-anduin-wrynn-video-games-wallpaper-preview.jpg",

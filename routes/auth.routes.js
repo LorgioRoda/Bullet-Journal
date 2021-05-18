@@ -89,7 +89,7 @@ router.put("/edit", isLoggedIn, uploader.single("photo"), (req, res, next) => {
     { _id: req.user.id },
     {
       ...req.body,
-      profilePic: req.file ? req.file.path : req.user.profilePic,
+      photo: req.file ? req.file.path : req.user.photo,
     },
     { new: true }
   )
