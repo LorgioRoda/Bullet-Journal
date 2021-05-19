@@ -83,7 +83,6 @@ router.get("/loggedin", (req, res) => {
 
 //Edit Profile
 router.put("/edit", isLoggedIn, uploader.single("photo"), (req, res, next) => {
-  console.log(req.file);
   User.findOneAndUpdate(
     { _id: req.user.id },
     {

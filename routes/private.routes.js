@@ -10,41 +10,6 @@ router.get("/:id", isLoggedIn,(req, res) => {
     .catch((err) => res.status(500).json(err));
 });
 
-/* //Profile edit user with Cloudinary
-router.post(
-  "/edit", uploader.fields(
-  [
-    { name: "profile_pic", maxCount: 1 },
-    { name: "profile_Background", maxCount: 1 },
-  ]),
-  (req, res) => {
-    const { username, description } = req.body;
-    const { _id: id } = req.user;
-    if (req.files) {
-      User.findById(id).then((currentUser) => {
-        User.findByIdAndUpdate(
-          id,
-          {
-            username,
-            description,
-            profile_pic: req.files.profile_pic
-              ? req.files.profile_pic[0].path
-              : currentUser.profile_pic,
-            profile_Background: req.files.profile_Background
-              ? req.files.profile_Background[0].path
-              : currentUser.profile_Background,
-          },
-          { new: true }
-        )
-          .then((user) => res.status(200).json(user))
-          .catch((err) => res.status(500).json(err));
-      });
-    }
-  }
-); */
-//Duda con el put y findbyandupdate
-
-
 //Profile delete
 router.delete("/:id/delete", isLoggedIn, (req, res, next) => {
   const { id } = req.params;
