@@ -20,12 +20,12 @@ const userSchema = new Schema(
     photo: {
       type: String,
       default:
-        "http://www.kalegoi.com/wp-content/uploads/2016/09/aia-1000x200.jpg",
+        "https://us.123rf.com/450wm/salamatik/salamatik1801/salamatik180100019/92979836-perfil-an%C3%B3nimo-icono-de-la-cara-persona-silueta-gris-avatar-masculino-por-defecto-foto-de-marcador-de-p.jpg?ver=6",
     },
     profile_Background: {
       type: String,
       default:
-        "https://pbs.twimg.com/profile_images/1015018361745526784/2luA9Rvz.jpg",
+        "http://www.kalegoi.com/wp-content/uploads/2016/09/aia-1000x200.jpg",
     },
   },
   {
