@@ -8,6 +8,9 @@
     "start": "node ./bin/www",
     "dev": "nodemon -e '*' ./bin/www"
   },
+  "engines": {
+    "node": "15.x"
+  },
   "keywords": [],
   "author": "",
   "license": "ISC",
